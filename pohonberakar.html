@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Materi Pohon Berakar</title>
+    <style>
+      * {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        background: #f8fafc;
+      }
+
+      header {
+        background: linear-gradient(90deg, #0ea5e9, #6366f1);
+        padding: 20px 25px;
+        text-align: center;
+        width: 100%;
+      }
+
+      header h1 {
+        color: white;
+        margin: 0;
+        font-size: 20px;
+      }
+
+      header p {
+        color: white;
+        font-size: 12px;
+        margin-top: 8px;
+      }
+
+      nav {
+        background: #4f46e5;
+        padding: 12px;
+        position: sticky;
+        top: 0;
+        text-align: center;
+        width: 100%;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      nav a:hover {
+        text-decoration: underline;
+      }
+
+      nav button {
+        margin: 5px 5 px;
+        background-color: rgb(255, 255, 255);
+        border: none;
+        padding: 9px 90px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      nav button a {
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+      }
+
+      nav button:hover {
+        background-color: #ffffff00;
+        transform: translateY(-1px);
+      }
+
+      .MA1 {
+        width: 100%;
+        background: darkblue;
+        color: white;
+        text-align: center;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 0px;
+      }
+
+      .MA2 {
+        width: 100%;
+        background: darkblue;
+        color: white;
+        text-align: center;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 30px;
+        border-radius: 8px;
+        margin-bottom: 8px;
+      }
+
+      /* Semua section ukurannya sama */
+      section {
+        width: 100%;
+        min-height: 420px;
+        padding: 40px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        border-bottom: 1px solid #ddd;
+      }
+
+      section > div {
+        width: 90%;
+        max-width: 800px;
+      }
+
+      .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 25px;
+        width: 90%;
+        max-width: 800px;
+        margin-top: 25px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 14px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: 0.3s;
+        margin-bottom: 10px;
+        margin-top: 10px;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .card h3 {
+        color: #4338ca;
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 16px;
+        text-align: left;
+      }
+
+      .card p {
+        font-size: 13px;
+        color: #1f2937;
+        line-height: 1.5;
+        text-align: left;
+      }
+
+      .foto {
+        display: block;
+        margin: 10px auto;
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Perbaikan ukuran gambar agar sama besar dengan kolom */
+      .materi-img {
+        width: 90%;
+        max-width: 800px;
+        display: block;
+        margin: 15px auto;
+        border-radius: 10px;
+        object-fit: contain;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transform: rotateY(-5px);
+      }
+      /* PARTIKEL */
+      .matematik {
+        position: fixed;
+        bottom: -10px;
+        color: #ff4d6d;
+        font-size: 20px;
+        animation: floatUp 4s linear forwards;
+        opacity: 0.8;
+        pointer-events: none;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) translateX(0) scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: translateY(-150px) translateX(20px) scale(1.3);
+        }
+        100% {
+          transform: translateY(-350px) translateX(-20px) scale(0.8);
+          opacity: 0;
+        }
+      }
+
+      footer {
+        margin-top: 30px;
+        color: blue;
+        font-size: 14px;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Materi Pohon Dan Pohon Berakar</h1>
+      <p>Ayo Mengenal dan Belajar Bersama!</p>
+    </header>
+
+    <nav>
+      <a href="#definisi">Definisi </a> 
+      <a href="#pembeda"> Pohon Berakar </a>
+      <a href="#pemilihan"> Peran Lintasan </a>
+      <a href="#saudara"> Saudara </a>
+      <a href="#derajat"> Derajat </a>
+      <a href="#daunSimpul"> Daun & Simpul </a>
+      <a href="#tingkat"> Tingkat Kedalaman </a>
+      <a href="#pTerurut"> Pohon Terurut </a>
+      <a href="#pMary"> Pohon M-Ary </a>
+      <a href="#tsMary"> M-Ary Seimbang </a>
+    </nav>
+
+    <!-- === MATERI SECTION === -->
+
+    <!-- 1 -->
+    <section id="definisi">
+      <div>
+        <div class="MA2">1. Definisi Pohon Berakar</div>
+        <div class="card">
+          <h3>Definisi Pohon</h3>
+          <p>
+            Pohon berarakar (rooted tree) adalah pohon yang sebuah simpulnya
+            dijadikan akar dan setiap sisinya diberi arah sehingga menjauhi akar
+            tersebut. Tanda arah/ panah pada pohon berakar dapat dibuang bila
+            akar dari pohon tersebut sudah jelas.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section id="pembeda">
+      <div>
+        <div class="MA2">2.Pemilihan Akar Root</div>
+
+        <div class="card">
+          <h3>Yang Termasuk Pohon & Yang Bukan</h3>
+          <p>Berikut ini ilustrasinya:</p>
+        </div>
+
+        <img src="Foto\Pohonberakar.png" class="materi-img" />
+
+        <div class="card" style="margin-top: 20px">
+          <h3>Penjelasan</h3>
+          <p>
+            Pada gambar tengah, simpul yang dipilih menjadi akar adalah simpul
+            a, sedangkan pada gambar kanan, simpul yang dipilih menjadi akar
+            adalah simpul c.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section id="pemilihan">
+      <div>
+        <div class="MA2">3. Menentukan Peran Lintasan</div>
+        <img src="Foto\Menentukan Lintasan.png" class="materi-img" />
+        <div class="card">
+          <h3>Orangtua (Parent), Anak (Child/ Children), dan Lintasan</h3>
+          <p>
+            <b>Pada pohon berakar di atas, kita memiliki:</b>
+          </p>
+
+          <p>
+            <b>1 : </b> Simpul B, C, dan D adalah anak-anak (Children) dari A,
+            masing-masing dari B, C, dan D adalah anak (Child) dari A;
+          </p>
+
+          <p>
+            <b>2 : </b> Simpul A adalah orangtua (Parent) dari B, C, maupun D;
+          </p>
+
+          <p>
+            <b>3 : </b> Lintasan dari <a></a> ke J hanya ada satu (tunggal),
+            yaitu A; B; E; J dengan panjang 3.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section id="saudara">
+      <div>
+        <div class="MA2">4. Menentukan Saudara, Sepupu, dan SubPohon</div>
+        <img src="Foto/Saudara.png" class="materi-img" />
+        <div class="card">
+          <h3>Penjelasan</h3>
+          <p>
+            <b> 1. </b> E Adalah Saudara Kandung (Sibling) Dari F, Dan
+            Sebaliknya, Karena E Dan F Memiliki Orangtua Yang Sama, Yaitu B
+          </p>
+          <p>
+            <b> 2. </b> E Bukan Saudara Kandung Dari G (Dan Sebaliknya), Karena
+            Orangtua Mereka Berbeda <br />
+          </p>
+          <p>
+            <b> 3. </b> Meskipun E Bukan Saudara Kandung G, E Adalah Sepupu
+            (Cousin) Dari G, Karena Orangtua E Dan Orangtua G Memiliki Orangtua
+            Yang Sama, Yaitu A; <br />
+          </p>
+          <p>
+            <b> 4. </b> Subgraf Yang Dilingkari Dengan Ìakarî B Dikatakan
+            Subpohon (Subtree) Dari Pohon Dengan Akar A.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section id="derajat">
+      <div>
+        <div class="MA2">5. Derajat</div>
+        <img src="Foto\Menentukan Lintasan.png" class="materi-img" />
+        <div class="card">
+          <h3>Menentukan Derajat</h3>
+          <p>
+            <b>Pada pohon berakar di atas, kita memiliki:</b>
+          </p>
+
+          <p>
+            <b>1 : </b> Pada Pohon Berakar Di Atas, Kita Memiliki: 1 Deg (A) =
+            3, Deg (B) = 2, Deg (C) = 0, Dan Deg (D) = 1, Jadi Derajat Di Sini
+            Adalah Derajat Keluar (Ke Bawah);
+          </p>
+
+          <p>
+            <b>2 : </b> Derajat Pohon Di Atas Adalah 3 Karena Derajat Terbesar
+            Dari Seluruh Derajat Simpul Yang Ada Adalah 3 (Untuk Simpul A Dan
+            Simpul E).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section id="daunSimpul">
+      <div>
+        <div class="MA2">6. Menentukan Daun & Simpul Dalam</div>
+
+        <div class="card">
+          <h3>Definisi Daun (Leaf) & Simpul Dalam (Internal Node)</h3>
+          <p>
+            Daun adalah simpul yang berderajat nol (simpul yang tidak memiliki
+            anak). Simpul dalam (internal node/ internal vertex) adalah simpul
+            bukan akar yang memiliki anak (simpul tersebut memiliki anak dan
+            orangtua).
+          </p>
+        </div>
+
+        <img src="Foto\Menentukan Lintasan.png" class="materi-img" />
+
+        <div class="card" style="margin-top: 20px">
+          <h3>Penjelasan</h3>
+          <p>
+            <b>1. </b>Simpul H, I, J, C, L, Dan M Adalah Daun (Leaf ) Karena
+            Simpul-Simpul Tersebut Tidak Memiliki Anak 
+            <p>
+            <b>2. </b>Simpul B, D, E, G, Dan
+            K Adalah Simpul Dalam (Internal Node/ Internal Vertex) Karena
+            Simpul-Simpul Tersebut Memiliki Anak Dan Orangtua
+            </p>
+          </p>
+        </div>
+      </div>
+    </section>
+    
+       <!-- 7 -->
+    <section id="tingkat">
+      <div>
+        <div class="MA2">7. Menentukan Tingkat & Kedalaman </div>
+
+        <div class="card">
+          <h3>Definisi Tingkat/Level</h3>
+          <p>
+            Tingkat/ Level Dari Sebuah Simpul Adalah Banyaknya Sisi Pada Sebuah Lintasan Unik (Tunggal) Antara Simpul Tersebut Dan Akar.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Definisi Tinggi (Height) Atau Kedalaman (Depth) </h3>
+          <p>
+           Tinggi (Height) Atau Kedalaman (Depth) Dari Suatu Pohon Adalah Nilai Tingkat (Level) Terbesar Yang Mungkin Ada Di Pohon Tersebut.
+          </p>
+        </div>
+
+        <img src="Foto\Kedalaman.png" class="materi-img" />
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section id="pTerurut">
+      <div>
+        <div class="MA2">8. Pohon Terurut</div>
+        <img src="Foto\PohonTerurut.png" class="materi-img" />
+        <div class="card">
+          <h3>Penjelasan Pohon Terurut : </h3>
+
+          <p>
+            Pohon Terurust (Ordered Tree) Merupakan Pohon Yang Urutan Anak-Anak Dari 
+            Setiap Simpulnya Diperhatikan. Berikut Adalah Contoh Ilustrasi Pohon Terurut.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section id="pMary">
+      <div>
+        <div class="MA2">9. Pohon M-Ary & Pohon M-Ary Teratur</div>
+        <div class="card">
+          <h3>Menentukan Pohon Terurut</h3>
+          <p>
+            Sebuah Pohon Dikatakan Pohon M-Ary Bila Akar Dan Setiap Simpul Dalamnya Memiliki 
+            Paling Banyak M Anak. 
+          </p>
+          <p>
+            Sebuah Pohon M-Ary Disebut Pohon M-Ary Penuh/ Teratur (Full/ Regular M-Ary Tree) 
+            Bila Akar Dan Setiap Simpul Dalamnya Memikiki Tepat M Anak. Pohon 2-Ary Selanjutnya Disebut Pohon Biner (Binary Tree).
+          </p>
+        </div>
+        <img src="Foto\LPTeratur.png" class="materi-img" />
+        <div class="card" style="margin-top: 20px">
+        <h3> Penjelasan </h3>
+        <p><b>Menentukan Apakah Pohon Tersebut Merupakan Pohon 'M-Ary' Teratur </b></p>
+          <p>
+            <b> 1. </b>
+            T1 Adalah Pohon Biner Penuh/ Teratur (Full/ Regular Binary Tree) Karena Akar Dan Setiap Simpul Dalamnya Memiliki Tepat 2 Anak.
+          </p>
+          <p>
+            <b> 2. </b>
+            T2 Adalah Pohon 3-Ary Penuh/ Teratur Karena Akar Dan Setiap Simpul Dalamnya Memiliki Tepat 3 Anak.
+          </p>
+          <p>
+          <b> 3.</b>
+            T3 Adalah Pohon 5-Ary Penuh/ Teratur Karena Akar Dan Setiap Simpul Dalamnya Memiliki Tepat 5 Anak.
+          </p>
+          <p>
+            <b> 4. </b>
+            T4 Adalah Pohon 3-Ary, Namun Bukan Pohon 3-Ary Penuh/ Teratur Karena Akarnya Hanya Memiliki 2 
+            Anak Dan Terdapat Simpul Dalam Yang Hanya Memiliki 2 Anak.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section id="tsMary">
+      <div>
+        <div class="MA2">10. Pohon M-Ary Seimbang</div>
+        <img src="Foto\LPSeimbang.png" class="materi-img" />
+        <div class="card">
+          <h3>Definisi : </h3>
+
+          <p>
+            <b>1. </b>
+            T1 Adalah Pohon Biner Seimbang Karena Setiap Daunnya Berada Pada Tingkat 4 Atau 3. 
+          </p>
+
+          <p>
+            <b>2. </b>
+           T2 Bukan Pohon Biner Seimbang Karena Daunnya Berada Di Tingkat 4, 3, Atau 2. 
+          </p>
+
+          <p>
+            <b>3. </b>
+            T3 Adalah Pohon 3-Ary Seimbang Karena Semua Daunnya Berada Pada Tingkat 3.
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+        <!-- 5 -->
+      <section id="hutan">
+      <div>
+        <div class="MA2">VIDEO PEMBELAJARAN</div>
+        <div class="card">
+          <h3>POHON BERAKAR</h3>
+          <a
+          href="https://drive.google.com/file/d/1jxnFPsFocqyAlenSwBvaYXjP9CoQgJxp/view"
+          target="_blank"
+          class="btn-drive">
+          🎬 Tonton Video di Google Drive
+        </a>
+    </section>
+
+    <nav>
+      <button onclick="location.href='calcumtd.html'">Kalkulator Pohon</button>
+      <button onclick="location.href='index.html'"> Materi Pohon </button>
+    </nav>
+
+    <script>
+      function createHeart() {
+        const icons = ["➕", "➖", "✖", "➗", "√", "π", "∞"];
+        const heart = document.createElement("div");
+        heart.classList.add("matematik");
+        heart.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.fontSize = 15 + Math.random() * 20 + "px";
+        heart.style.animationDuration = 3 + Math.random() * 3 + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 50000);
+      }
+      setInterval(createHeart, 750);
+    </script>
+
+    <!-- === END === -->
+
+    <footer>© Kelompok Belajar Struktur Data - Pohon & Pohon Berakar</footer>
+  </body>
+</html>
